@@ -1,2 +1,4 @@
 # persistent-tui
-a persistent tui for rust
+
+a persistent tui wrapper ontop of [ratatui](https://github.com/ratatui/ratatu)
+
