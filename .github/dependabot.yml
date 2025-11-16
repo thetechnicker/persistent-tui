@@ -6,11 +6,7 @@ version: 2
 updates:
   # Maintain dependencies for Cargo
   - package-ecosystem: "cargo"
-    directory: "/console-chat" # Location of package manifests
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
-    directory: "/backend" # Location of package manifests
+    directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
   # Maintain dependencies for GitHub Actions
@@ -18,4 +14,3 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
-
