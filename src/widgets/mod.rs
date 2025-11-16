@@ -1,0 +1,51 @@
+use crossterm::event::KeyEvent;
+use ratatui::{buffer::Buffer, layout::Rect};
+use std::cell::RefCell;
+use std::fmt::Debug;
+use std::rc::Rc;
+
+pub mod input;
+pub use input::*;
+pub mod button;
+pub use button::*;
+pub mod color;
+pub use color::*;
+
+pub enum WidgetEvent {
+    Input((String, Option<String>)),
+    Button(String),
+}
+
+pub trait Widget: Debug {
+    fn boxed(self) -> Rc<RefCell<Self>>
+    where
+        Self: Sized,
+    {
+        Rc::new(RefCell::new(self))
+    }
+
+    fn focus(&mut self) {}
+    fn unfocus(&mut self) {}
+
+    fn handle_key_event(&mut self, _: KeyEvent) -> Option<WidgetEvent> {
+        None
+    }
+
+    fn clear(&mut self, hard: bool);
+
+    fn draw(&self, area: Rect, buf: &mut Buffer, ret: &mut Option<u16>);
+
+    fn into_widget(&self) -> &dyn Widget
+    where
+        Self: Sized,
+    {
+        self as &dyn Widget
+    }
+
+    fn get_len(&self) -> usize {
+        0
+    }
+    fn is_long(&self) -> bool {
+        false
+    }
+}
